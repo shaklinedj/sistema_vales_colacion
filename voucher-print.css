@@ -1,0 +1,7 @@
+body {
+  display: none; /* oculta todo el contenido de la página */
+}
+
+#voucher {
+  display: block; /* muestra solo el voucher */
+}

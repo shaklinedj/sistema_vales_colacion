@@ -3,63 +3,66 @@
 <head>
   <title>Voucher</title>
   <style>
-    .voucher-popup {
-      width: 400px;
-      height: 500px;
-      background-color: white;
-      border: 1px solid gray;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 20px;
     }
-css
-Copy code
-.logo {
-  width: 150px;
-  height: 150px;
-  background-image: url(logo.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-bottom: 30px;
-}
 
-p {
-  margin: 0;
-  padding: 10px 0;
-}
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-<?php
-  if (mysqli_query($conn, $sql)) {
-    $voucher_number = mysqli_insert_id($conn);
-    $voucher_number = sprintf("%03d", $voucher_number);
-    echo "<div class='voucher-popup' id='voucher'>";
-    echo "<div class='logo'></div>";
-    echo "<p>Número de Voucher: " . $voucher_number . "</p>";
-    echo "<p>Nombre: " . $name . "</p>";
-    echo "<p>Empresa: " . $company . "</p>";
-    echo "<p>Fecha y Hora: " . $time . "</p>";
-    echo "<p>Comida: " . $meal_type . "</p>";
-    echo "</div>";
-  } else {
-      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-  }
+  <?php
+    // Conexión a la base de datos
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "vouchers";
 
-  mysqli_close($conn);
-  
-  header("Refresh:0");
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-?>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("voucher").style.display = "flex";
-  });
-</script>
+    if (!$conn) {
+      die("Conexión fallida: " . mysqli_connect_error());
+    }
+
+    // Obtener el último voucher generado
+    $sql = "SELECT * FROM vouchers_table ORDER BY id DESC LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      echo "<h1> Ticket Colacion </h1>";
+      echo "<p>Nombre: " . $row["name"] . "</p>";
+      echo "<p>Empresa: " . $row["company"] . "</p>";
+      echo "<p>Fecha y Hora: " . $row["voucher_time"] . "</p>";
+      echo "<p>Comida: " . $row["meal_type"] . "</p>";
+      echo "<p>Número de Voucher: " . sprintf("%03d", $row["id"]) . "</p>";
+    } else {
+      echo "<p>No se encontraron vouchers.</p>";
+    }
+
+    mysqli_close($conn);
+  ?>
+
+  <button onclick="window.print()">Imprimir</button>
 </body>
 </html>

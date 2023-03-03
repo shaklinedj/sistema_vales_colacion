@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistema de entrega de vales de comida</title>
+  <!-- Referencia a Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <!-- Contenido del formulario y del voucher -->
+  <!-- Referencia a Bootstrap JS y jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
+<div class="container">
+  <h2>Registro de vales de comida</h2>
+  <form class="form-horizontal" action="submit.php" method="POST">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Nombre:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" placeholder="Ingresa tu nombre" name="name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="company">Empresa:</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="company" name="company" required>
+          <option value="">Selecciona una empresa</option>
+          <option value="Casino">Casino</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Grupo Clean">Grupo Clean</option>
+          <option value="Externo">Externo</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="voucher-time">Hora:</label>
+      <div class="col-sm-10">
+        <input type="datetime-local" class="form-control" id="voucher-time" name="voucher-time" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="meal-type">Tipo de comida:</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="meal-type" name="meal-type" required>
+          <option value="">Selecciona un tipo de comida</option>
+          <option value="Almuerzo">Almuerzo</option>
+          <option value="Cena">Cena</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Entregar vale</button>
+      </div>
+    </div>
+  </form>
+</div>
